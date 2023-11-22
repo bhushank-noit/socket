@@ -5,14 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.2/socket.io.js"></script>
     <script>
-      var socket = io();
-      socket.on("countuser", function (data) {
-        console.log("countuser", data);
-        document.getElementById("title").innerHTML =
-          document.getElementById("title").innerHTML + "<hr>" + data;
-      });
-      socket.on("newuser", function (data) {
-        console.log("newuser", data);
+      var socket = io("/custom-namespace");
+      socket.on("newUserWithNameSpace", function (data) {
+        console.log("newUserWithNameSpace", data);
         document.getElementById("title").innerHTML =
           document.getElementById("title").innerHTML + "<hr>" + data;
       });

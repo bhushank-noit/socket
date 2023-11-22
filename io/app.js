@@ -10,10 +10,9 @@ app.get("/", function (req, res) {
   res.sendFile("index.html", options);
 });
 let user = 1;
-io.on("connection", function (socket) {
-  io.sockets.emit("countuser", "Total user " + user++); //to all user
-  socket.broadcast.emit("newuser", "New user added"); // send to all old user 
-  socket.emit("newuser", "Welcome"); // send to newly joined user
+let cnsp = io.of("/custom-namespace");
+cnsp.on("connection", function (socket) {
+  socket.emit("newUserWithNameSpace", "Welcome to custom namespace"); // send to newly joined user
 });
 
 http.listen(5000, () => {
