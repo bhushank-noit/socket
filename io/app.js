@@ -9,14 +9,11 @@ app.get("/", function (req, res) {
   };
   res.sendFile("index.html", options);
 });
+let user = 1;
 io.on("connection", function (socket) {
-  setTimeout(() => {
-    socket.send("hello client from server");
-  }, 3000);
-  socket.on("client", (data) => {
-    console.log(data);
-  });
-  socket.emit("server", { description: "hello client from server" });
+  io.sockets.emit("countuser", "Total user " + user++); //to all user
+  socket.broadcast.emit("newuser", "New user added"); // send to all old user 
+  socket.emit("newuser", "Welcome"); // send to newly joined user
 });
 
 http.listen(5000, () => {

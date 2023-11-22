@@ -6,18 +6,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.2/socket.io.js"></script>
     <script>
       var socket = io();
-      socket.on("message", function (data) {
-        console.log(data);
-        document.getElementById("title").innerHTML = data;
+      socket.on("countuser", function (data) {
+        console.log("countuser", data);
+        document.getElementById("title").innerHTML =
+          document.getElementById("title").innerHTML + "<hr>" + data;
       });
-      setTimeout(() => {
-        socket.emit("client", { description: "Clent Send meessage" });
-      }, 10000);
-      socket.on("server", function (data) {
-        console.log(data);
-        document.getElementById("title1").innerHTML = data.description;
+      socket.on("newuser", function (data) {
+        console.log("newuser", data);
+        document.getElementById("title").innerHTML =
+          document.getElementById("title").innerHTML + "<hr>" + data;
       });
-    </script> 
+    </script>
 
     <title>Document</title>
   </head>
