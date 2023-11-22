@@ -9,10 +9,16 @@ app.get("/", function (req, res) {
   };
   res.sendFile("index.html", options);
 });
-let user = 1;
-let cnsp = io.of("/custom-namespace");
-cnsp.on("connection", function (socket) {
-  socket.emit("newUserWithNameSpace", "Welcome to custom namespace"); // send to newly joined user
+let room = 1;
+let full = 0;
+io.on("connection", function (socket) {
+  socket.join("room-" + room);
+  io.sockets.in("room-" + room).emit("room_joined", "Welcome to room " + room); // send to newly joined user
+  full++;
+  if (full >= 2) {
+    full = 0;
+    room++;
+  }
 });
 
 http.listen(5000, () => {
