@@ -10,11 +10,15 @@ app.get("/", function (req, res) {
   res.sendFile("index.html", options);
 });
 io.on("connection", function (socket) {
-  console.log("connected");
-  socket.on("disconnect", function () {
-    console.log("disconnected");
+  setTimeout(() => {
+    socket.send("hello client from server");
+  }, 3000);
+  socket.on("client", (data) => {
+    console.log(data);
   });
+  socket.emit("server", { description: "hello client from server" });
 });
+
 http.listen(5000, () => {
   console.log("listening on port http://localhost:5000");
 });
